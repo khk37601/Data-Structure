@@ -1,6 +1,18 @@
 #include"LinkedQueue.h"
 #include<stdlib.h>
 
+//링크드 큐는 포화 상태를 확인 할 필요가 없다.
+
+/*
+  Front                  Gear
+   ^                      ^
+  ----      ----        ----
+  | 1 |  -> | 2 |   ->  | 3 |
+  ----      ----        ----
+  
+  Gear로 추가  Front로 출력
+*/
+
 void CreateLinkedQueue(LikedQueue ** queue)
 {
 	(*queue)->count = 0;
