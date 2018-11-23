@@ -80,6 +80,23 @@ append_node(Node **head , Node*newNode)
 ```
 ###  이중 연결 리스트 
 ```
+typdef struct _node
+{
+   int data;
+   struct _node * next;
+   struct _node * prev;
+
+}Node;
+
+단일 노드와 차이점은 두개의 포인터를 가지고 있다는 것이다.
+next 포인터는 다음노드를,  prev포인터는 이전 노드를 가르키고 있는것이다.
+
+ 단일 연결 리스트
+ 1 -> 2 -> 3 -> 4
+ 
+ 
+
+
 
 
 ```
