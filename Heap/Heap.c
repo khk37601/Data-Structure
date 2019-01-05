@@ -55,7 +55,7 @@ void Heap_SwapNodes(Heap * h,int index, int index2)
 	 free(tmp);
 
 }
-void   Heap_DeleteMin(Heap *h , Node * root)
+void Heap_DeleteMin(Heap *h , Node * root)
 {
 	int ParentPosition = 0;
 	int LeftPosition   = 0;
@@ -63,46 +63,59 @@ void   Heap_DeleteMin(Heap *h , Node * root)
 
 	//root에 node[0] 복사
 	memcpy(root,&h->node[0],sizeof(Node));
+	//node[0]에 0으로 초기화
 	memset(&h->node[0],0,sizeof(Node));
 
 	h->UsedSize--;
 	Heap_SwapNodes(h,0,h->UsedSize);
 
+	//root의 왼쪽 자식 노드 반환
 	LeftPosition  = Heap_GetLeftChild(0);
+	//Leftchild 에 1더허면 오른쪽 자식이다.
 	RightPosition = LeftPosition+1;
 
+	//힙 속성유지 확인
 	while(1)
 	{
 		int SelectedChild = 0;
 
+	
 		if(LeftPosition >= h->UsedSize)
 		{
+			//종료
 			break;
 		}
-
 		if(RightPosition >= h->UsedSize)
 		{
 			SelectedChild = LeftPosition;
-		}else
-		{
+		}
+		else
+		{    
+			//left 노드 값이 right 값 보다 클 경우
 			if(h->node[LeftPosition].data > h->node[RightPosition].data)
+				
 			     SelectedChild = RightPosition;
 			else
 				SelectedChild = LeftPosition;
 		}
 
+
+		//부모 노드가 클경우
 		if(h->node[SelectedChild].data < h->node[ParentPosition].data)
 		{
+			//교환
 			Heap_SwapNodes(h,ParentPosition,SelectedChild);
 			ParentPosition = SelectedChild;
 		}else
 			break;
 
+		
 		LeftPosition  = Heap_GetLeftChild(ParentPosition);
 		RightPosition = LeftPosition+1;
 
 	}
 
+	//줄어든 크기 만큼 크기 재할당
 	if(h->UsedSize < (h->Capacity/2))
 	{
 		h->Capacity /=2;
@@ -115,17 +128,14 @@ void   Heap_DeleteMin(Heap *h , Node * root)
 
 int Heap_GetLeftChild(int index)
 {
-
 	return (int)(2*index)+1;
-
-
 }
 
 
-int GetParent(int index)
+int Heap_GetParent(int index)
 {
 	//부모 노드 인덱스 반환
-	return int((index-1)/2);
+	return (int)((index-1)/2);
 }
 void   Heap_Destroy(Heap * h)
 {
@@ -133,14 +143,13 @@ void   Heap_Destroy(Heap * h)
 	free(h);
 
 }
-
 void   Heap_PrintNodes(Heap *h)
 {
 	int size= h->UsedSize;
 	int i=0;
 	for(i=0;i<size;i++)
 	{
-		printf("%d",h->node[i].data);
+		printf("%d ",h->node[i].data);
 	}
 	printf("\n");
 
